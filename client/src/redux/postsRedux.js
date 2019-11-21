@@ -3,6 +3,7 @@ import { API_URL } from '../config';
 
 /* SELECTORS */
 export const getPosts = ({ posts }) => posts;
+export const getPostsCounter = ({ posts }) => posts.length;
 
 /* ACTIONS */
 //action name creator
