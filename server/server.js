@@ -17,7 +17,10 @@ app.use('/api', postRoutes);
 mongoose.connect(config.DB, {useNewUrlParser: true});
 let db = mongoose.connection;
 
-db.once('open', () => console.log('Connected to the database'));
+db.once('open', () => {
+  console.log('Connected to the database');
+  loadTestData();
+});
 db.on('error', (err) => console.log('Error ' + err));
 
 app.listen(config.PORT, function() {
