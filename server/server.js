@@ -1,24 +1,19 @@
-const express = require ('express');
-const cors = require ('cors');
+const express = require('express');
+const cors = require('cors');
+const config = require('./config');
 
 const app = express();
 
-//middleware
-//bez opcji - każde połączenie z zewnątrz będzie akceptowane
+// import routes
+const postRoutes = require('./routes/post.routes');
+
 app.use(cors());
-//body parser
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
+app.use('/api', postRoutes);
 
-//endpoint symulujący zwracanie tablicy postów z bazy danych
-app.get('/api/posts', (req, res) => {
-    const data = [
-        { id: '1adfasf', title: 'Lorem Ipsum', content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.' },
-        { id: '2evxc34', title: 'Lorem Ipsum II', content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.' },
-    ]
-    res.json(data);
+app.listen(config.PORT, function() {
+  console.log('Server is running on Port:', config.PORT);
 });
 
-app.listen(8000, function() {
-    console.log('Server is running on port:', 8000);
-});
+console.log('abs');
