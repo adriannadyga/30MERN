@@ -32,7 +32,7 @@ class Posts extends React.Component {
                     <Alert variant={'error'}>{request.error}</Alert>
                 </div>
             );
-        } else if (request.pending == false && request.success === true && posts.length === 0) {
+        } else if (request.pending === false && request.success === true && posts.length === 0) {
             return (
                 <Alert variant={'info'}>No posts</Alert>
             );
