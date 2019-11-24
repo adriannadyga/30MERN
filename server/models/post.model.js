@@ -7,4 +7,4 @@ const Post = new Schema({
     content: { type: 'String', required: true },
 });
 
-module.exports = mngoose.model('Post', Post);
+module.exports = mongoose.model('Post', Post);
