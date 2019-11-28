@@ -34,7 +34,7 @@ export const loadPostsRequest = () => {
             dispatch(endRequest());
 
         }   catch(e) {
-            dispatch(errorRequest(e.message)) ;
+            dispatch(errorRequest(e.message));
         }
 
     };
@@ -49,6 +49,7 @@ const initialState = {
         error: null,
         success: null,
     },
+    singlePost: [],
 };
 
 /* REDUCER */
