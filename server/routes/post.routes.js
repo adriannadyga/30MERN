@@ -7,3 +7,9 @@ const PostController = require('../controllers/post.controller');
 router.route('/posts').get(PostController.getPosts);
 
 module.exports = router;
+
+//get single post
+
+router.route('/posts/:id').get(PostController.getSinglePost)
+
+module.exports = router;
