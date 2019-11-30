@@ -21,6 +21,7 @@ class SinglePost extends React.Component {
           <div>
               <article>
                   <SmallTitle>{posts[0].title}</SmallTitle>
+                  <p>Author: {posts[0].author}</p>
                   <HtmlBox>{posts[0].content}</HtmlBox>
               </article>
           </div>
@@ -59,6 +60,7 @@ posts: PropTypes.arrayOf(
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
   })
 ),
 loadPost: PropTypes.func.isRequired,
