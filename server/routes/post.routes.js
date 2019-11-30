@@ -13,3 +13,6 @@ module.exports = router;
 router.route('/posts/:id').get(PostController.getSinglePost);
 
 module.exports = router;
+
+//add posts
+router.route('/posts').post(PostController.addPost);
