@@ -17,12 +17,14 @@ export const LOAD_SINGLE_POST = createActionName('LOAD_SINGLE_POST');
 export const START_REQUEST = createActionName('START_REQUEST');
 export const END_REQUEST = createActionName('END_REQUEST');
 export const ERROR_REQUEST = createActionName('ERROR_REQUEST');
+export const RESET_REQUEST = createActionName('RESET_REQUEST');
 
-export const loadPosts = payload => ({payload, type: LOAD_POSTS});
-export const loadSinglePost = payload => ({payload, type: LOAD_SINGLE_POST});
+export const loadPosts = payload => ({ payload, type: LOAD_POSTS });
+export const loadSinglePost = payload => ({ payload, type: LOAD_SINGLE_POST });
 export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
 export const errorRequest = error => ({ error, type: ERROR_REQUEST });
+export const resetRequest = () => ({ type: RESET_REQUEST });
 
 /* THUNKS */
 export const loadPostsRequest = () => {
@@ -61,21 +63,22 @@ export const loadSinglePostRequest = id => {
     };
   };
 
-export const addPostRequest = (post) => {
+  export const addPostRequest = (post) => {
     return async dispatch => {
-
-        dispatch(startRequest());
-        try {
-
-            let res = await axios.get(`${API_URL}/posts`, post);
-            await new Promise((resolve, reject) => setTimeout(resolve, 2000));
-            dispatch(endRequest());
-            
-        } catch(e) {
-            dispatch(errorRequest(e.message));
-        }
-    }
-}
+  
+      dispatch(startRequest());
+      try {
+  
+        let res = await axios.post(`${API_URL}/posts`, post);
+        await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+        dispatch(endRequest());
+  
+      } catch(e) {
+        dispatch(errorRequest(e.message));
+      }
+  
+    };
+  };
 
 /* INITIAL STATE */
 
@@ -94,16 +97,18 @@ const initialState = {
 export default function reducer (statePart = initialState, action = {}) {
     switch (action.type) {
         case LOAD_POSTS:
-            return { ...statePart, data: action.payload };
+          return { ...statePart, data: action.payload };
         case LOAD_SINGLE_POST:
-            return { ...statePart, singlePost: action.payload };
+          return { ...statePart, singlePost: action.payload };
         case START_REQUEST:
-            return { ...statePart, request: { pending: true, error: null, success: null } };
+          return { ...statePart, request: { pending: true, error: null, success: null } };
         case END_REQUEST:
-            return { ...statePart, request: { pending: false, error: null, success: true } };
+          return { ...statePart, request: { pending: false, error: null, success: true } };
         case ERROR_REQUEST:
-            return { ...statePart, request: { pending: false, error: action.error, success: false } };
+          return { ...statePart, request: { pending: false, error: action.error, success: false } };
+        case RESET_REQUEST:
+          return { ...statePart, request: { pending: false, error: null, success: null }};
         default:
-            return statePart;
+          return statePart;
     }
 };

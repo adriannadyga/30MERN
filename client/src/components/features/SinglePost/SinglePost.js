@@ -5,12 +5,14 @@ import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
 import HtmlBox from '../../common/HtmlBox/HtmlBox';
 import SmallTitle from '../../common/SmallTitle/SmallTitle';
+import { resetRequest } from '../../../redux/postsRedux';
 
 class SinglePost extends React.Component {
 
   componentDidMount() {
     const { loadPost, match} = this.props;
     loadPost(match.params.id);
+    resetRequest();
   }
 
   render() {

@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import './PostForm.scss';
-
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/default.css';
@@ -10,72 +8,90 @@ import 'medium-editor/dist/css/themes/default.css';
 import TextField from '../../common/TextField/TextField';
 import SectionTitle from '../../common/SectionTitle/SectionTitle';
 import Button from '../../common/Button/Button';
+import Alert from '../../common/Alert/Alert';
+import Spinner from '../../common/Spinner/Spinner';
+
+import './PostForm.scss';
 
 class PostForm extends React.Component {
 
-    state = {
-        post: {
-            title: '',
-            author: '',
-            content: ''
-        }
+  state = {
+    post: {
+      title: '',
+      author: '',
+      content: ''
     }
+  }
 
-    handleChange = (e) => {
-        const { post } = this.state;
-        this.setState({ post: { ...post, [e.target.name]: e.target.value }});
-    }
+  componentDidMount() {
+      const { resetRequest } = this.props;
+      resetRequest();
+  }
+  
+  handleChange = (e) => {
+    const { post } = this.state;
+    this.setState({ post: { ...post, [e.target.name]: e.target.value }})
+  }
 
-    handleEditor = (text) => {
-        const { post } = this.state;
-        this.setState({ post: { ...post, content: text}});
-    }
+  handleEditor = (text) => {
+    const { post } = this.state;
+    this.setState({ post: { ...post, content: text }})
+  }
 
-    render() {
+  addPost = (e) => {
+    const { addPost, resetRequest } = this.props;
+    const { post } = this.state;
 
-        const { post } = this.state;
-        const { handleChange, handleEditor } = this;
+    e.preventDefault();
+    addPost(post);
+    resetRequest();
+  }
 
-        return(
-            <form>
-                <TextField
-                    label="Title"
-                    value={post.title}
-                    onChange={handleChange}
-                    name="title"
-                />
+  render() {
 
-                <TextField
-                    label="Author"
-                    value={post.author}
-                    onChange={handleChange}
-                    name="author"
-                />
+    const { post } = this.state;
+    const { handleChange, handleEditor, addPost } = this;
+    const { request } = this.props;
 
-                <SectionTitle>Edit post content</SectionTitle>
+    if(request.error) return <Alert variant="error">{request.error}</Alert>
+    else if(request.success) return <Alert variant="success">Post has been added!</Alert>
+    else if(request.pending) return <Spinner />
+    else return (
+      <form onSubmit={addPost}>
 
-                <Editor
-                className="content-editor"
-                text={post.content}
-                onChange={handleEditor}
-                options={{placeholder: false, toolbar: { buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3'] } }}
-                />
+        <TextField
+          label="Title"
+          value={post.title}
+          onChange={handleChange}
+          name="title"
+        />
 
-                <Button variant="primary">Add post</Button>
+        <TextField
+          label="Author"
+          value={post.author}
+          onChange={handleChange}
+          name="author"
+        />
 
-            </form>
-        );
-    }
+        <SectionTitle>Edit post content</SectionTitle>
+
+        <Editor
+          className="content-editor"
+          text={post.content}
+          onChange={handleEditor}
+          options={{ placeholder: false, toolbar: { buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3'] } }}
+        />
+
+        <Button variant="primary">Add post</Button>
+
+      </form>
+    );
+  }
 };
 
 PostForm.propTypes = {
-    posts: PropTypes.arrayOf(
-        PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            content: PropTypes.string.isRequired,
-            author: PropTypes.string.isRequired,
-        })
-    ),
+  request: PropTypes.object.isRequired,
+  addPost: PropTypes.func.isRequired,
 };
 
 export default PostForm;
