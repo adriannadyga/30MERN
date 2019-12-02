@@ -4,6 +4,7 @@ import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
 import PostList from '../PostList/PostList';
 import { resetRequest } from '../../../redux/postsRedux';
+import Pagination from '../../common/Pagination/Pagination';
 
 class Posts extends React.Component {
 
@@ -20,6 +21,7 @@ class Posts extends React.Component {
             return (
                 <div>
                     <PostList posts={posts} />
+                    <Pagination pages={10} onPageChange={(page) => { console.log(page) }} />
                 </div>
             );
         } else if (request.pending === true || request.success === null) {
