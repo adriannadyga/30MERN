@@ -18,7 +18,7 @@ class NavBar extends React.Component {
         const { links } = this.state;
       
         return (
-          <nav className="navbar">
+          <nav className={"navbar"}>
             <Logo />
             <MainMenu links={links} />
           </nav>

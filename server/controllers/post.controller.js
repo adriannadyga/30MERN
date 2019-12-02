@@ -1,4 +1,5 @@
 const Post = require('../models/post.model');
+const uuid = require('uuid');
 
 // get all posts
 exports.getPosts = async (req, res) => {
