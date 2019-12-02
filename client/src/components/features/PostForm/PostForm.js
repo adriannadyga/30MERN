@@ -60,17 +60,17 @@ class PostForm extends React.Component {
       <form onSubmit={addPost}>
 
         <TextField
-          label="Title"
+          label={"Title"}
           value={post.title}
           onChange={handleChange}
-          name="title"
+          name={"title"}
         />
 
         <TextField
-          label="Author"
+          label={"Author"}
           value={post.author}
           onChange={handleChange}
-          name="author"
+          name={"author"}
         />
 
         <SectionTitle>Edit post content</SectionTitle>
@@ -82,7 +82,7 @@ class PostForm extends React.Component {
           options={{ placeholder: false, toolbar: { buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3'] } }}
         />
 
-        <Button variant="primary">Add post</Button>
+        <Button variant={"primary"}>Add post</Button>
 
       </form>
     );
