@@ -9,6 +9,7 @@ export const getSinglePost = ({ posts }) => posts.singlePost;
 export const getPages = ({ posts }) => Math.ceil(posts.amount / posts.postsPerPage);
 export const getPostsPerPage = ({ posts }) => posts.postsPerPage;
 
+
 /* ACTIONS */
 // action name creator
 const reducerName = 'posts';
@@ -21,6 +22,7 @@ export const START_REQUEST = createActionName('START_REQUEST');
 export const END_REQUEST = createActionName('END_REQUEST');
 export const ERROR_REQUEST = createActionName('ERROR_REQUEST');
 export const RESET_REQUEST = createActionName('RESET_REQUEST');
+export const LOAD_POSTS_PAGE = createActionName('LOAD_POSTS_PAGE');
 
 export const loadPosts = payload => ({ payload, type: LOAD_POSTS });
 export const loadSinglePost = payload => ({payload, type: LOAD_SINGLE_POST});
@@ -29,6 +31,7 @@ export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
 export const errorRequest = error => ({ error, type: ERROR_REQUEST });
 export const resetRequest = () => ({ type: RESET_REQUEST });
+export const loadPostsRequest = payload => ({payload, type: LOAD_POSTS_PAGE});
 
 /* INITIAL STATE */
 
@@ -62,6 +65,7 @@ export const loadPostsRequest = () => {
 
 export const loadSinglePostRequest = (id) => {
     return async dispatch => {
+      
         dispatch(startRequest());
         try {
             let res = await axios.get(`${API_URL}/posts/${id}`);
