@@ -1,25 +1,33 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+
 import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
 import PostList from '../PostList/PostList';
-import { resetRequest } from '../../../redux/postsRedux';
+// import { resetRequest } from '../../../redux/postsRedux';
+import Pagination from '../../common/Pagination/Pagination';
 
 class Posts extends React.Component {
 
     componentDidMount() {
-        const { loadPosts } = this.props;
-        loadPosts();
-        resetRequest();
+        const { loadPostsByPage } = this.props;
+        loadPostsByPage(1);
+      }
+
+    loadPostsPage = (page) => {
+        const { loadPostsByPage } = this.props;
+        loadPostsByPage(page);
     }
 
     render() {
-        const { posts, request } = this.props;
+        const { posts, request, pages } = this.props;
+		const { loadPostsPage } = this;
 
         if (request.pending === false && request.success === true && posts.length > 0) {
             return (
                 <div>
                     <PostList posts={posts} />
+                    <Pagination pages={pages} onPageChange={loadPostsPage}/>
                 </div>
             );
         } else if (request.pending === true || request.success === null) {
@@ -51,7 +59,7 @@ Posts.propTypes = {
             author: PropTypes.string.isRequired,
         })
     ),
-    loadPosts: PropTypes.func.isRequired,
+    loadPostByPage: PropTypes.func.isRequired,
 };
 
 export default Posts;
