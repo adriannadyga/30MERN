@@ -4,25 +4,26 @@ import { Link } from 'react-router-dom';
 
 import Button from '../../common/Button/Button';
 import SmallTitle from '../../common/SmallTitle/SmallTitle';
-import HtmlBox from '../../common/HtmlBox/HtmlBox';
-import cutText from '../../../utils/cutText';
+import './PostSummary.scss';
+import HtmlBox from "../../common/HtmlBox/HtmlBox";
+import cutText from "../../../utils/cutText/cutText";
 
 const PostSummary = ({ id, title, content, author }) => (
-  <article>
-    <SmallTitle>{title}</SmallTitle>
-    <p>Author: {author}</p>
-    <HtmlBox>{cutText(content, 250)}</HtmlBox>
-    <Button variant="primary">
-    <Link to={`/posts/${id}`}>Read more</Link>
-    </Button>
-  </article>
+    <article className={'post-summary'}>
+        <SmallTitle>{title}</SmallTitle>
+        <HtmlBox>{cutText(content, 250)}</HtmlBox>
+        <p> Author: {author}</p>
+        <Button variant={'primary'}><Link to={`/posts/${id}`}>
+            Read more
+        </Link></Button>
+    </article>
 );
 
 PostSummary.propTypes = {
-  id: PropTypes.string,
-  title: PropTypes.string,
-  content: PropTypes.string,
-  author: PropTypes.string,
+    id: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    author: PropTypes.string.isRequired,
 };
 
 export default PostSummary;
