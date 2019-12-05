@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {getPosts, getRequest, loadPostsByPageRequest, getPages, getPostsPerPage} from '../../../redux/postsRedux';
+import {getPosts, getRequest, loadPostsByPageRequest, getPages, getPostsPerPage, resetRequest} from '../../../redux/postsRedux';
 import Posts from './Posts';
 
 const mapStateToProps = state => ({
@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     loadPostsByPage: (page, postsPerPage) => dispatch(loadPostsByPageRequest(page, postsPerPage)),
+    resetRequest: () => dispatch(resetRequest())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);

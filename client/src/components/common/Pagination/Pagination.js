@@ -16,6 +16,7 @@ class Pagination extends React.Component {
 
         this.setState({ presentPage: newPage });
         onPageChange(newPage);
+        console.log(newPage);
     };
 
     goToPage = increment => {

@@ -13,6 +13,11 @@ class Posts extends React.Component {
         loadPostsByPage(initialPage || 1, postsPerPage);
     }
 
+    componentWillUnmount() {
+        const { resetRequest } = this.props;
+        resetRequest();
+      }
+
     loadPostsPage = (page) => {
         const { loadPostsByPage, postsPerPage } = this.props;
         loadPostsByPage(page, postsPerPage);
