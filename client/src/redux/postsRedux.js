@@ -117,6 +117,8 @@ const initialState = {
     },
     singlePost: [],
     amount: 0,
+    postPerPage: 10,
+    presentPage: 1
 };
 
 /* REDUCER */

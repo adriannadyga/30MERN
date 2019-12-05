@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faChevronRight,
-	faChevronLeft
+	faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
 import './Pagination.scss';
 
@@ -38,7 +37,7 @@ class Pagination extends Component {
 					{presentPage >= 2 && (
 						<li className="pagination__list__item">
 							<FontAwesomeIcon
-								icon={faChevronLeft}
+								icon={faThumbsUp}
 								onClick={() => {
 									skipToPage(-1);
 								}}
@@ -58,7 +57,7 @@ class Pagination extends Component {
 					{presentPage !== pages && (
 						<li className="pagination__list__item">
 							<FontAwesomeIcon
-								icon={faChevronRight}
+								icon={faThumbsUp}
 								onClick={() => {
 									skipToPage(1);
 								}}
