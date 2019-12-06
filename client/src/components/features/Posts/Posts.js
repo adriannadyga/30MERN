@@ -18,53 +18,11 @@ class Posts extends React.Component {
         loadPostsByPage(page, postsPerPage);
     };
 
-    // render() {
-    //     const { posts, request, pages, presentPage } = this.props;
-    //     let { pagination } = this.props;
-    //     const { loadPostsPage } = this;
-
-    //     if (pagination === undefined) {
-    //         pagination = true
-    //     }
-    //     if (request.pending === false && request.success === true && posts.length > 0) {
-    //         return (
-    //             <div>
-    //                 <PostsList posts={posts}/>
-    //                 <Pagination pages={pages} onPageChange={loadPostsPage} initialPage={presentPage} />
-    //             </div>
-    //         );
-    //     } else if (request.pending === true || request.success === null) {
-    //         return (
-    //             <div>
-    //                 <Spinner/>
-    //             </div>
-    //         );
-    //     } else if (request.pending === false && request.error !== null) {
-    //         return (
-    //             <div>
-    //                 <Alert variant={'error'}>{request.error}</Alert>
-    //             </div>
-    //         );
-    //     } else if (request.pending === false && request.success === true && posts.length === 0) {
-    //         return (
-    //             <div>
-    //                 <Alert variant={'info'}>No posts</Alert>
-    //             </div>
-    //         );
-    //     } else {
-    //         return (
-    //             <div>
-    //                 <Alert variant={'info'}>Something went wrong...</Alert>
-    //             </div>
-    //         );
-    //     }
-    // }
-
     render() {
         const {posts, request, pages, pagination, presentPage} = this.props;
         const {loadPostsPage} = this;
     
-        const textin =  request.pending ? ( 
+        const text =  request.pending ? ( 
             <Spinner /> 
           ) : request.success && posts.length > 0 ? ( 
             pagination === true ? (
@@ -75,11 +33,11 @@ class Posts extends React.Component {
           ) : ( 
               <PostsList posts={posts} />
           )) :  (
-             ( <Alert variant="error"> {request.error} </Alert> || <Alert variant="info"> No posts!!! </Alert>) 
+             ( <Alert variant="error"> {request.error} </Alert> || <Alert variant="info"> No posts </Alert>) 
           );
          
         return (
-          <div> {textin} </div>
+          <div> {text} </div>
         );
       }
 }
