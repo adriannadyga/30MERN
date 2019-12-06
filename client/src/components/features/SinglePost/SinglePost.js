@@ -15,44 +15,29 @@ class SinglePost extends React.Component {
     }
 
     render() {
-        const { posts, request } = this.props;
-
-        if (request.pending === false && request.success === true && posts ) {
-            return (
-                <div>
-                    <article>
-                        <SmallTitle>{posts.title}</SmallTitle>
-                        <HtmlBox>{posts.content}</HtmlBox>
-                        <p> Author: {posts.author}</p>
-                    </article>
-                </div>
-            );
-        } else if (request.pending === true || request.success === null) {
-            return (
-                <div>
-                    <Spinner/>
-                </div>
-            );
-        } else if (request.pending === false && request.error !== null) {
-            return (
-                <div>
-                    <Alert variant={'error'}>{request.error}</Alert>
-                </div>
-            );
-        } else if (request.pending === false && request.success === true) {
-            return (
-                <div>
-                    <Alert variant={'info'}>No posts</Alert>
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <Alert variant={'info'}>Something went wrong...</Alert>
-                </div>
-            );
-        }
-    }
+        const {posts, request} = this.props;
+    
+        const text =  request.pending ? ( 
+            <Spinner /> 
+          ) : request.success ? ( 
+             posts.length > 0 ? (
+                <article className="post-summary">
+                  <SmallTitle>{posts[0].title}</SmallTitle>
+                  <HtmlBox>{posts[0].content}</HtmlBox>
+                  <p>Author: {posts[0].author}</p>
+                </article> 
+          ) : ( 
+            <Alert variant="info"> No posts!!! </Alert>
+          )) : ( 
+            <Alert variant={'info'}>Something went wrong...</Alert>
+          );
+    
+        return (
+          <div> 
+            {text} 
+          </div>
+        );
+      }
 }
 
 SinglePost.propTypes = {
