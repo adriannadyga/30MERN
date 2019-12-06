@@ -13,14 +13,24 @@ exports.getPosts = async (req, res) => {
 
 //get single post
 
-exports.getSinglePost = async(req, res) => {
-    Post.findOne({ id: req.params.id }).exec((err, post) => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        res.json( post );
-    });
-};
+exports.getSinglePost = async (req, res) => {
+    
+    try {
+        res.status(200).json(await Post.find({id: req.params.id}));
+      } catch(err) {
+        res.status(500).json(err);
+      }
+  
+  };
+
+// exports.getSinglePost = async(req, res) => {
+//     Post.findOne({ id: req.params.id }).exec((err, post) => {
+//         if (err) {
+//             res.status(500).send(err);
+//         }
+//         res.json( post );
+//     });
+// };
 
 //add new post
 exports.addPost = async function (req, res) {
@@ -41,7 +51,7 @@ exports.addPost = async function (req, res) {
 };
 
 //get posts by range
-exports.getPostsByRange = async function (req, res) {
+exports.getPostsByRange = async (req, res) => {
 
     try {
         let { startAt, limit } = req.params;
@@ -49,8 +59,8 @@ exports.getPostsByRange = async function (req, res) {
         startAt = parseInt(startAt);
         limit = parseInt(limit);
 
-        const posts = await Post.find().skip(startAt).limit(limit);
-        const amount = await Post.countDocuments();
+        let posts = await Post.find().skip(startAt).limit(limit);
+        let amount = await Post.countDocuments();
 
         res.status(200).json({
             posts,

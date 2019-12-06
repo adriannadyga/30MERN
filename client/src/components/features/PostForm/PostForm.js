@@ -1,6 +1,5 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-//import { connect } from 'react-redux';
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/default.css';
@@ -56,18 +55,21 @@ class PostForm extends React.Component {
         else if (request.pending) return <Spinner/>;
         else return (
                 <form onSubmit={addPost}>
+
                     <TextField
                         label={'Title'}
                         onChange={handleChange}
                         value={post.title}
                         name={'title'}
                     />
+
                     <TextField
                         label={'Author'}
                         onChange={handleChange}
                         value={post.author}
                         name={'author'}
                     />
+                    
                     <SectionTitle>Edit post content</SectionTitle>
                     <Editor
                         className="content-editor"

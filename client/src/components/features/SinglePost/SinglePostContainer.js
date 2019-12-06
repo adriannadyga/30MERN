@@ -4,7 +4,7 @@ import SinglePost from "./SinglePost";
 
 
 const mapStateToProps = state => ({
-    post: getSinglePost(state),
+    posts: getSinglePost(state),
     request: getRequest(state),
 
 });

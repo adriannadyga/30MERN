@@ -19,59 +19,64 @@ class Pagination extends React.Component {
         console.log(newPage);
     };
 
-    goToPage = increment => {
-        const { presentPage } =this.state;
+    prevStep = () => {
+        const { presentPage } = this.state;
         const { changePage } = this;
-        const { targetPage } = presentPage + increment;
-        changePage(targetPage);
-    };
+        if (presentPage > 1 )
+        changePage(presentPage - 1)
+    }
+
+    nextStep = () => {
+        const { pages} = this.props;
+        const { presentPage } = this.state;
+        const { changePage } = this;
+        if (presentPage < pages )
+        changePage(presentPage + 1)
+    }
 
     render() {
-        const { pages } = this.props;
+        const { pages} = this.props;
         const { presentPage } = this.state;
-        const { changePage, goToPage } = this;
+        const { changePage, prevStep, nextStep } = this;
 
         return (
-            <div className={'pagination'}>
-                <ul className={'pagination__list'}>
-
-                    {presentPage >= 2 && (
-                        <li className="pagination__list__item">
-                            <FontAwesomeIcon
-                                icon={faChevronLeft}
-                                onClick={() => {
-                                    goToPage(-1);
-                                }}
-                            />
-                        </li>
-                    )}
-
-                    {[...Array(pages)].map((el, page) =>
-                    <li
-                        key={++page}
-                        onClick={() => { changePage(page) }}
-                        className={`pagination__list__item${((page) === presentPage) ? ' pagination__list__item--active' : ''}`}
-                    >
-                        {page}
-                    </li>
-                    )}
-
-                    {presentPage !== pages && (
-                        <li className="pagination__list__item">
-                            <FontAwesomeIcon
-                                icon={faChevronRight}
-                                onClick={() => {
-                                    goToPage(1);
-                                }}
-                            />
-                        </li>
-                    )}
-
-                </ul>
+            <div className='pagination'>
+              <ul className='pagination__list'>
+                {presentPage >= 2 ? (
+                  <li>
+                    <FontAwesomeIcon 
+                    icon={faChevronLeft}
+                    onClick={prevStep}
+                    />
+                  </li>
+                ) : "" }
+                {[...Array(pages)].map((el, page) => (
+                  <li
+                    key={++page}
+                    onClick={() => {
+                      changePage(page);
+                    }}
+                    className={`pagination__list__item${
+                      page === presentPage ? ' pagination__list__item--active' : ''
+                    }`}
+                  >
+                    {page}
+                  </li>
+                ))}
+                {presentPage !== pages ? (
+                  <li>
+                    <FontAwesomeIcon
+                    icon={faChevronRight}
+                    onClick={nextStep}
+                    />
+                  </li>
+                ) : "" }
+              </ul>
             </div>
-        );
-    }
+          );
+        }
 }
+
 
 Pagination.propTypes = {
     pages: PropTypes.number.isRequired,

@@ -10,22 +10,20 @@ import { withRouter } from 'react-router-dom';
 class SinglePost extends React.Component {
 
     componentDidMount() {
-        const {loadPost, resetRequest, match} = this.props;
-        console.log(match.params.id);
+        const {loadPost, match} = this.props;
         loadPost(match.params.id);
-        // resetRequest();
     }
 
     render() {
-        const { post, request } = this.props;
+        const { posts, request } = this.props;
 
-        if (request.pending === false && request.success === true && post ) {
+        if (request.pending === false && request.success === true && posts ) {
             return (
                 <div>
                     <article>
-                        <SmallTitle>{post.title}</SmallTitle>
-                        <HtmlBox>{post.content}</HtmlBox>
-                        <p> Author: {post.author}</p>
+                        <SmallTitle>{posts.title}</SmallTitle>
+                        <HtmlBox>{posts.content}</HtmlBox>
+                        <p> Author: {posts.author}</p>
                     </article>
                 </div>
             );
