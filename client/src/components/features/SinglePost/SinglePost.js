@@ -7,7 +7,7 @@ import HtmlBox from '../../common/HtmlBox/HtmlBox';
 import SmallTitle from '../../common/SmallTitle/SmallTitle';
 import { withRouter } from 'react-router-dom';
 
-import { FacebookProvider, Comments } from 'react-facebook';
+import { FacebookProvider, Comments, Share, ShareButton } from 'react-facebook';
 import { BASE_URL} from "../../../config";
 
 class SinglePost extends React.Component {
@@ -29,13 +29,16 @@ class SinglePost extends React.Component {
                   <HtmlBox>{posts[0].content}</HtmlBox>
                   <p>Author: {posts[0].author}</p>
                   <FacebookProvider appId="2471797863074135">
+                    <ShareButton href={`${BASE_URL}/${location.pathname}`} >
+                      Udostępnij
+                    </ShareButton>
                     <Comments href={`${BASE_URL}/${location.pathname}`} />
                   </FacebookProvider>
                 </article> 
           ) : ( 
-            <Alert variant="info"> No posts!!! </Alert>
+            <Alert variant="info">No posts</Alert>
           )) : ( 
-            <Alert variant={'info'}>Something went wrong...</Alert>
+            <Alert variant={'info'}>Something went wrong</Alert>
           );
     
         return (
