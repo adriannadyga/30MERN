@@ -6,7 +6,7 @@ import Posts from '../../features/Posts/PostsContainer';
 
 const PostsPage = () => (
     <div>
-        <PageTitle>Post list</PageTitle>
+        <PageTitle>Blog</PageTitle>
         <PostsCounter />
         <Posts />
     </div>
