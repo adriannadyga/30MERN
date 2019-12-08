@@ -33,7 +33,9 @@ class Posts extends React.Component {
           ) : ( 
               <PostsList posts={posts} />
           )) :  (
-             ( <Alert variant="error"> {request.error} </Alert> || <Alert variant="info"> No posts </Alert>) 
+             ( 
+            //  <Alert variant="error"> {request.error} </Alert> ||
+              <Alert variant="info"> No posts </Alert>) 
           );
          
         return (

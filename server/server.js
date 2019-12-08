@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const loadTestData = require('./testData');
 const helmet = require('helmet');
 const sanitize = require('mongo-sanitize');
+const path = require('path');
 
 
 const app = express();
@@ -20,7 +21,12 @@ app.use(helmet());
 app.use((req, res, next) => {
   sanitize(req.body);
   next();
+});
+app.get('*', (req, res) => {
+  res.sendFile(path.join(_dirname + '/../client/build/index.html'));
 }) 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '/../client/build')));
 
 // connects our back end code with the database
 mongoose.connect(config.DB, { useNewUrlParser: true });
