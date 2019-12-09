@@ -7,3 +7,5 @@ module.exports = {
   PORT: process.env.PORT || 8000,
   DB: process.env.DB,
 };
+console.log(process.env.PORT);
+console.log(process.env.DB);
